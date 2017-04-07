@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private String[]titles;
     private ListView drawerList;
