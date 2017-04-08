@@ -5,6 +5,8 @@
     <string name="title_activity_order">Order Activity</string>
     <string name="action_share">Share</string>
     <string name="title_top">Top Fragment</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
 
     <string-array name="pizzas">
         <item>Pepperoni</item>
