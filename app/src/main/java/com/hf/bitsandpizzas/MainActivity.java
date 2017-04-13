@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView drawerList;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private int currentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_activated_1, titles));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
 
         //Create the ActionBarDrawerToggle
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
@@ -54,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt("position");
+            setTitle(currentPosition);
+        }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 
     @Override
@@ -77,5 +93,33 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    };
+
+    private void selectItem(int position) {
+        Fragment fragment;
+        switch(position) {
+            case 1:
+                fragment = new PizzaFragment();
+                break;
+            default:
+                fragment = new TopFragment();
+        }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment, "visible_fragment");
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+        //set the action bar title
+//        setTitle(position);
+        // close the drawer
+        drawerLayout.closeDrawer(drawerList);
     }
 }

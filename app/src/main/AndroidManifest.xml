@@ -19,7 +19,6 @@
 
         <activity
             android:name=".OrderActivity"
-            android:label="@string/title_activity_order"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

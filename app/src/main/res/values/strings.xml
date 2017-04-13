@@ -16,6 +16,8 @@
     <string-array name="titles">
         <item>Home</item>
         <item>Pizzas</item>
+        <item>Pastas</item>
+        <item>Stores</item>
     </string-array>
 
 </resources>
